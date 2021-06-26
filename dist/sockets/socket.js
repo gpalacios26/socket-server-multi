@@ -1,9 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.obtenerUsuarios = exports.configurarUsuario = exports.mensaje = exports.desconectar = exports.conectarCliente = exports.usuariosConectados = exports.mapaSockets = exports.mapa = void 0;
+exports.obtenerUsuarios = exports.configurarUsuario = exports.mensaje = exports.desconectar = exports.conectarCliente = exports.usuariosConectados = exports.mapaSockets = exports.mapa = exports.googleMapsSockets = void 0;
 var usuarios_lista_1 = require("../classes/usuarios-lista");
 var usuario_1 = require("../classes/usuario");
 var mapa_1 = require("../classes/mapa");
+var router_1 = require("../routes/router");
+var googleMapsSockets = function (cliente) {
+    cliente.on('marcador-nuevo2', function (marcador) {
+        router_1.mapa2.agregarMarcador(marcador);
+        cliente.broadcast.emit('marcador-nuevo2', marcador);
+    });
+    cliente.on('marcador-borrar2', function (id) {
+        router_1.mapa2.borrarMarcador(id);
+        cliente.broadcast.emit('marcador-borrar2', id);
+    });
+    cliente.on('marcador-mover2', function (marcador) {
+        router_1.mapa2.moverMarcador(marcador);
+        cliente.broadcast.emit('marcador-mover2', marcador);
+    });
+};
+exports.googleMapsSockets = googleMapsSockets;
 exports.mapa = new mapa_1.Mapa();
 var mapaSockets = function (cliente, io) {
     cliente.on('marcador-nuevo', function (marcador) {

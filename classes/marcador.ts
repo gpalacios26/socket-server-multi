@@ -5,7 +5,7 @@ export class Marcador {
         public nombre: string,
         public lng: number,
         public lat: number,
-        public color: string
+        public color?: string
     ) { }
 
 }

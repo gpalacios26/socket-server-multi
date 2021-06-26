@@ -3,11 +3,41 @@ import Server from '../classes/server';
 import { usuariosConectados, mapa } from '../sockets/socket';
 import { GraficaData } from '../classes/grafica';
 import { Grafica2Data } from '../classes/grafica2';
-import { Mapa } from '../classes/mapa';
+import { Mapa2 } from '../classes/mapa2';
 
 const router = Router();
 
-/* Mapa */
+/* Mapa Google */
+
+export const mapa2 = new Mapa2();
+const lugares = [
+    {
+        id: '1',
+        nombre: 'Udemy',
+        lat: 37.784679,
+        lng: -122.395936
+    },
+    {
+        id: '2',
+        nombre: 'Bahía de San Francisco',
+        lat: 37.798933,
+        lng: -122.377732
+    },
+    {
+        id: '3',
+        nombre: 'The Palace Hotel',
+        lat: 37.788578,
+        lng: -122.401745
+    }
+];
+
+mapa2.marcadores.push(...lugares);
+
+router.get('/mapa2', (req: Request, res: Response) => {
+    res.json(mapa2.getMarcadores());
+});
+
+/* Mapa Mapbox */
 
 router.get('/mapa', (req: Request, res: Response) => {
     res.json(mapa.getMarcadores());

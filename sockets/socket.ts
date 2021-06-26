@@ -4,6 +4,24 @@ import { UsuariosLista } from '../classes/usuarios-lista';
 import { Usuario } from '../classes/usuario';
 import { Mapa } from '../classes/mapa';
 import { Marcador } from '../classes/marcador';
+import { mapa2 } from '../routes/router';
+
+export const googleMapsSockets = (cliente: Socket) => {
+    cliente.on('marcador-nuevo2', (marcador) => {
+        mapa2.agregarMarcador(marcador);
+        cliente.broadcast.emit('marcador-nuevo2', marcador);
+    });
+
+    cliente.on('marcador-borrar2', (id: string) => {
+        mapa2.borrarMarcador(id);
+        cliente.broadcast.emit('marcador-borrar2', id);
+    });
+
+    cliente.on('marcador-mover2', (marcador) => {
+        mapa2.moverMarcador(marcador);
+        cliente.broadcast.emit('marcador-mover2', marcador);
+    });
+}
 
 export const mapa = new Mapa();
 

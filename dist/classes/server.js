@@ -52,6 +52,8 @@ var Server = /** @class */ (function () {
         this.io.on('connection', function (cliente) {
             // Conectar cliente
             socket.conectarCliente(cliente, _this.io);
+            // Configuración de google maps
+            socket.googleMapsSockets(cliente);
             // Configuración de mapas
             socket.mapaSockets(cliente, _this.io);
             // Configurar usuario

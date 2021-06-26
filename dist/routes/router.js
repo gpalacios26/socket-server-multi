@@ -2,14 +2,43 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.mapa2 = void 0;
 var express_1 = require("express");
 var server_1 = __importDefault(require("../classes/server"));
 var socket_1 = require("../sockets/socket");
 var grafica_1 = require("../classes/grafica");
 var grafica2_1 = require("../classes/grafica2");
+var mapa2_1 = require("../classes/mapa2");
 var router = express_1.Router();
-/* Mapa */
+/* Mapa Google */
+exports.mapa2 = new mapa2_1.Mapa2();
+var lugares = [
+    {
+        id: '1',
+        nombre: 'Udemy',
+        lat: 37.784679,
+        lng: -122.395936
+    },
+    {
+        id: '2',
+        nombre: 'Bahía de San Francisco',
+        lat: 37.798933,
+        lng: -122.377732
+    },
+    {
+        id: '3',
+        nombre: 'The Palace Hotel',
+        lat: 37.788578,
+        lng: -122.401745
+    }
+];
+(_a = exports.mapa2.marcadores).push.apply(_a, lugares);
+router.get('/mapa2', function (req, res) {
+    res.json(exports.mapa2.getMarcadores());
+});
+/* Mapa Mapbox */
 router.get('/mapa', function (req, res) {
     res.json(socket_1.mapa.getMarcadores());
 });
